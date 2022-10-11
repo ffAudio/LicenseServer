@@ -23,27 +23,47 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  ==============================================================================
-
-    BEGIN_JUCE_MODULE_DECLARATION
-    ID:            licensing
-    vendor:        Foleys Finest Audio
-    version:       0.0.1
-    name:          Licensing Client
-    description:   This module implements communication with a self hosted
-                   activation server
-    dependencies:  juce_core, juce_cryptography, juce_gui_basics
-    website:       https://github.com/ffAudio/LicenseServer
-    license:       MIT License
-    END_JUCE_MODULE_DECLARATION
-
- ==============================================================================
  */
 
-#pragma once
+#include "LicensingGUI.h"
+#include "WelcomePopup.h"
+#include "../Client/Unlocker.h"
 
-#include <juce_core/juce_core.h>
-#include <juce_cryptography/juce_cryptography.h>
-#include <juce_gui_basics/juce_gui_basics.h>
+namespace licensing
+{
 
-#include "Client/Unlocker.h"
-#include "GUI/LicensingGUI.h"
+LicensingGUI::LicensingGUI (licensing::Unlocker& unlockerToUse, juce::Component* parentToUse)
+  : unlocker (unlockerToUse),
+    parent (parentToUse)
+{
+
+}
+
+LicensingGUI::~LicensingGUI()
+{
+    masterReference.clear();
+}
+
+void LicensingGUI::showWelcome (int delayMS)
+{
+    if (!parent || unlocker.isValidToRun())
+        return;
+
+    juce::WeakReference<LicensingGUI> gui (this);
+    juce::Timer::callAfterDelay (delayMS, [this, gui]
+    {
+        if (!gui)
+            return;
+
+        gui->popup = std::make_unique<WelcomePopup>(unlocker, *gui);
+        gui->popup->setBounds (gui->parent->getLocalBounds());
+        gui->parent->addAndMakeVisible (gui->popup.get());
+    });
+}
+
+void LicensingGUI::closePopup()
+{
+    popup.reset();
+}
+
+}

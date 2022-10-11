@@ -23,27 +23,34 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  ==============================================================================
-
-    BEGIN_JUCE_MODULE_DECLARATION
-    ID:            licensing
-    vendor:        Foleys Finest Audio
-    version:       0.0.1
-    name:          Licensing Client
-    description:   This module implements communication with a self hosted
-                   activation server
-    dependencies:  juce_core, juce_cryptography, juce_gui_basics
-    website:       https://github.com/ffAudio/LicenseServer
-    license:       MIT License
-    END_JUCE_MODULE_DECLARATION
-
- ==============================================================================
  */
 
 #pragma once
 
-#include <juce_core/juce_core.h>
-#include <juce_cryptography/juce_cryptography.h>
-#include <juce_gui_basics/juce_gui_basics.h>
+namespace licensing
+{
 
-#include "Client/Unlocker.h"
-#include "GUI/LicensingGUI.h"
+class LicensingGUI
+{
+public:
+    LicensingGUI (licensing::Unlocker& unlocker, juce::Component* parent);
+    ~LicensingGUI();
+
+    /*!
+     Show a welcome screen after delayMS miliseconds if not already licensed
+     */
+    void showWelcome (int delayMS);
+
+    void closePopup();
+
+private:
+    licensing::Unlocker& unlocker;
+    juce::Component::SafePointer<juce::Component> parent;
+
+    std::unique_ptr<juce::Component> popup;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LicensingGUI)
+    JUCE_DECLARE_WEAK_REFERENCEABLE (LicensingGUI)
+};
+
+} // namespace licensing

@@ -47,7 +47,3 @@ The payload looks like:
 - product (optional) the product name
 - manufacturer (optional) the manufacturer
 - user (optional) if the license/demo is already connected to a user account it will be linked here
-
-
-
-

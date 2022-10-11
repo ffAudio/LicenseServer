@@ -23,27 +23,60 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  ==============================================================================
-
-    BEGIN_JUCE_MODULE_DECLARATION
-    ID:            licensing
-    vendor:        Foleys Finest Audio
-    version:       0.0.1
-    name:          Licensing Client
-    description:   This module implements communication with a self hosted
-                   activation server
-    dependencies:  juce_core, juce_cryptography, juce_gui_basics
-    website:       https://github.com/ffAudio/LicenseServer
-    license:       MIT License
-    END_JUCE_MODULE_DECLARATION
-
- ==============================================================================
  */
 
 #pragma once
 
-#include <juce_core/juce_core.h>
-#include <juce_cryptography/juce_cryptography.h>
-#include <juce_gui_basics/juce_gui_basics.h>
+#include "Connection.h"
 
-#include "Client/Unlocker.h"
-#include "GUI/LicensingGUI.h"
+
+namespace licensing
+{
+
+enum class Status
+{
+    Unknown = 0,     //< No check yet
+    Offline,         //< No license file and server unreachable
+    Demo,            //< Demo period currently running
+    DemoExpired,     //< Was demoed and demo expired
+    LicenseMismatch, //< A license was found but doesn't belong to this machine ID
+    Licensed         //< Valid license was found
+};
+
+class Unlocker
+{
+public:
+    /*!
+     Create an unlocker object that will communicate with a server at the given address
+     */
+    Unlocker();
+
+    /*!
+     Set the license file location. This will try to read and decrypt the license file.
+     If it is not there, it tries asynchronously to get a license online.
+     */
+    void setLicenseFile (const juce::File& filename);
+
+    /*!
+     Connect to the server and request a demo
+     */
+    void requestDemo();
+
+    bool isValidToRun();
+
+    Status getLicenseStatus() const;
+
+    void launchProductPage();
+
+    bool validateLicenseFile (const juce::File& file);
+
+private:
+    Connection  connection;
+
+    Status      status = Status::Unknown;
+    juce::File  licenseFile;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Unlocker)
+};
+
+} // namespace licensing

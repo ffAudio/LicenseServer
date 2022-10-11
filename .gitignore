@@ -1,0 +1,16 @@
+# OS specific
+
+**/.DS_*
+
+# IDE specific
+
+**/.idea
+**/*.vcproj
+**/*.xcodeproj
+
+# JUCE specific
+
+**/JuceLibraryCode
+**/Builds
+
+

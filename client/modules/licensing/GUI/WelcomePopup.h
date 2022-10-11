@@ -23,27 +23,37 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  ==============================================================================
-
-    BEGIN_JUCE_MODULE_DECLARATION
-    ID:            licensing
-    vendor:        Foleys Finest Audio
-    version:       0.0.1
-    name:          Licensing Client
-    description:   This module implements communication with a self hosted
-                   activation server
-    dependencies:  juce_core, juce_cryptography, juce_gui_basics
-    website:       https://github.com/ffAudio/LicenseServer
-    license:       MIT License
-    END_JUCE_MODULE_DECLARATION
-
- ==============================================================================
  */
 
 #pragma once
 
-#include <juce_core/juce_core.h>
-#include <juce_cryptography/juce_cryptography.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 
-#include "Client/Unlocker.h"
-#include "GUI/LicensingGUI.h"
+namespace licensing
+{
+
+class WelcomePopup : public juce::Component,
+                     public juce::FileDragAndDropTarget
+{
+public:
+    WelcomePopup (Unlocker& unlocker, LicensingGUI& gui);
+
+    void paint (juce::Graphics& g) override;
+    void resized() override;
+
+    bool isInterestedInFileDrag (const juce::StringArray& files) override;
+    void filesDropped (const juce::StringArray& files, int x, int y) override;
+
+private:
+    Unlocker&     unlocker;
+    LicensingGUI& licensingGUI;
+
+    juce::TextButton demo  { TRANS ("Request Demo") };
+    juce::TextButton buy   { TRANS ("Buy a license") };
+    juce::TextButton close { TRANS ("X") };
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WelcomePopup)
+};
+
+
+} // namespace licensing
