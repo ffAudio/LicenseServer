@@ -17,9 +17,11 @@ Features
 Dependencies
 ------------
 
-Client: 	JUCE/C++
-Server: 	To be decided
-Database:	To be decided
+- Client: 	JUCE/C++
+- Server: 	To be decided
+- Database:	To be decided
+
+JUCE is dual licenced. There is no license included when using this project.
 
 Protocol
 --------
