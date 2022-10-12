@@ -27,7 +27,9 @@ To be continued...
 References
 ----------
 
-[1] https://www.djangoproject.com/start/
+[1] https://devcenter.heroku.com/articles/heroku-cli
 
-[2] https://medium.com/quick-code/deploying-django-app-to-heroku-full-guide-6ff7252578d7
+[2] https://www.djangoproject.com/start/
+
+[3] https://medium.com/quick-code/deploying-django-app-to-heroku-full-guide-6ff7252578d7
 
