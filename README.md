@@ -18,10 +18,15 @@ Dependencies
 ------------
 
 - Client: 	JUCE/C++
-- Server: 	To be decided
+- Server: 	Django / Heroku
 - Database:	To be decided
 
 JUCE is dual licenced. There is no license included when using this project.
+
+Server
+------
+
+This repository can be deployed to a heroku server. To set this up follow the README in the `server` directory.
 
 Protocol
 --------
