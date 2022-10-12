@@ -19,7 +19,7 @@ Dependencies
 
 - Client: 	JUCE/C++
 - Server: 	Django / Heroku
-- Database:	To be decided
+- Database:	Postgres
 
 JUCE is dual licenced. There is no license included when using this project.
 
