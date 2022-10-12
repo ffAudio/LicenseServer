@@ -13,4 +13,7 @@
 **/JuceLibraryCode
 **/Builds
 
+# Python
 
+**/__psycache__
+**/__pycache__
