@@ -26,6 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
 from django.db import models
+import uuid
+
 
 # Create your models here.
 
@@ -35,11 +37,14 @@ class Product(models.Model):
     website = models.URLField(blank=True)
     allowDismissPopup = models.BooleanField()
 
+    def __str__(self):
+        return self.name
+
 
 class Version(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     version_string = models.CharField(max_length=64)
-    uuid = models.UUIDField()
     private_key = models.TextField()
     public_key = models.TextField()
     public_key_hash = models.BigIntegerField()
@@ -47,9 +52,13 @@ class Version(models.Model):
 
 
 class Customer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=256)
     email = models.EmailField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name + " (" + self.email + ")"
 
 
 class License(models.Model):
@@ -65,4 +74,3 @@ class Activation(models.Model):
     hardware_name = models.CharField(max_length=256)
     demo_expires = models.DateTimeField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
-
