@@ -10,11 +10,8 @@
 
 #pragma once
 
-namespace licensing
-{
-
-namespace Data
-{
+namespace licensing {
+namespace Data {
 
 const char* server      = "https://auth.example.com/";
 const char* productPage = "https://github.com/ffAudio/LicenseServer/";
