@@ -19,6 +19,8 @@ DJANGO_SECRET: add a secret key here, should be random. You can use get_random_s
 
 HEROKU_HOSTNAME: the hostname of your HEROKU server, so it can be accessed from outside
 
+PARENT_HOSTNAME: the hostname of your company. This allows linking back
+
 Connect a POSTGRES database, because the sqlite will be wiped every night when the heroku server does an automatic powercycle.
 
 To be continued...

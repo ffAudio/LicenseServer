@@ -25,11 +25,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ==============================================================================
 """
 
+import os
 from django.urls import path
 
 from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('license', views.license),
 ]
 

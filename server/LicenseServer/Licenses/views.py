@@ -25,11 +25,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ==============================================================================
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+import os
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return redirect(os.environ.get('PARENT_HOSTNAME'))
 
+
+# This checks the database for a valid license, demo or if demo is available
+def license(request):
+    return HttpResponse("License test")
