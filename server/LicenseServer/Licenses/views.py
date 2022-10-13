@@ -56,8 +56,9 @@ def license_data(request):
 #pragma once
 
 namespace licensing {
-namespace Data {    
-    """
+namespace Data {
+
+"""
 
     source += 'const char* server      = "https://auth.example.com/";\n'
     source += 'const char* productPage = "https://github.com/ffAudio/LicenseServer/";\n'
@@ -70,6 +71,6 @@ namespace Data {
 } // namespace Data
 } // namespace licensing
     
-    """
+"""
 
     return HttpResponse(source)
