@@ -33,6 +33,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('license', views.license),
-    path('license_data', views.license_data),
+    path('license_data/<uuid:version_id>', views.license_data),
 ]
 

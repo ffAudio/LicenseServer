@@ -25,8 +25,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ==============================================================================
 """
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+
+import models
 import os
 
 # Create your views here.
@@ -42,6 +44,8 @@ def license(request):
 
 # This creates a cpp file for the developer to pu in their product to unlock
 def license_data(request):
+    version = get_object_or_404(Version, pk=version_id)
+
     source = """
 /*
   ==============================================================================
@@ -60,12 +64,12 @@ namespace Data {
 
 """
 
-    source += 'const char* server      = "https://auth.example.com/";\n'
-    source += 'const char* productPage = "https://github.com/ffAudio/LicenseServer/";\n'
-    source += 'const char* productUuid = "abc-def-foo-bar";\n'
-    source += 'const char* publicKey   = "foobar";\n'
-    source += 'long        hash        = 123;\n'
-    source += 'bool        closingPopupAllowed = true;\n'
+    source += 'const char* server      = "' + version + '";\n'
+    source += 'const char* productPage = "' + version.product.website + ';\n'
+    source += 'const char* productUuid = "' + version.id + '";\n'
+    source += 'const char* publicKey   = "' + version.public_key + '";\n'
+    source += 'long        hash        = ' + version.public_key_hash + ';\n'
+    source += 'bool        closingPopupAllowed = ' + version.product.allowDismissPopup + ';\n'
 
     source += """
 } // namespace Data
