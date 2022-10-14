@@ -43,7 +43,7 @@ def license(request):
 
 
 # This creates a cpp file for the developer to pu in their product to unlock
-def license_data(request):
+def license_data(request, version_id):
     version = get_object_or_404(Version, pk=version_id)
 
     source = """
