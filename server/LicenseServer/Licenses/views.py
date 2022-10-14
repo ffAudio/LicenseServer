@@ -66,7 +66,7 @@ namespace Data {
 
     source += 'const char* server      = "https://' + os.environ.get('HEROKU_HOSTNAME') + '/";\n'
     source += 'const char* productPage = "' + version.product.website + ';\n'
-    source += 'const char* productUuid = "' + version.id + '";\n'
+    source += 'const char* productUuid = "' + version.id.str + '";\n'
     source += 'const char* publicKey   = "' + version.public_key + '";\n'
     source += 'long        hash        = ' + version.public_key_hash + ';\n'
     source += 'bool        closingPopupAllowed = ' + version.product.allowDismissPopup + ';\n'
