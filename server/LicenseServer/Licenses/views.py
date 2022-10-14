@@ -41,7 +41,9 @@ def index(request):
 # This checks the database for a valid license, demo or if demo is available
 @csrf_exempt
 def license(request):
-    return HttpResponse("License test")
+    version = get_object_or_404(Version, pk=request.POST["version"])
+
+    return HttpResponse("License test for:" + str(version.product))
 
 
 # This creates a cpp file for the developer to pu in their product to unlock

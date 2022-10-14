@@ -36,7 +36,9 @@ public:
     Connection();
 
 private:
-    void sendRequest();
+    juce::ValueTree createPacket();
+
+    void sendRequest (juce::ValueTree payload);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Connection)
 };

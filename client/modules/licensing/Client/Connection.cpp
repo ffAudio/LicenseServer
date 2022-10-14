@@ -33,12 +33,26 @@ namespace licensing
 
 Connection::Connection()
 {
-    sendRequest();
+    sendRequest (createPacket());
 }
 
-void Connection::sendRequest()
+juce::ValueTree Connection::createPacket()
 {
-    auto url = juce::URL (juce::String (Data::server) + "license").withParameter ("version", Data::productUuid);
+    return {"License",
+        {
+            {"hardware_id", juce::SystemStats::getDeviceIdentifiers().joinIntoString (";")},
+            {"computer_name", juce::SystemStats::getComputerName()}
+        }
+    };
+}
+
+void Connection::sendRequest (juce::ValueTree payload)
+{
+    auto packet = juce::Base64::toBase64 (payload.toXmlString());
+
+    auto url = juce::URL (juce::String (Data::server) + "license")
+        .withParameter ("version", Data::productUuid)
+        .withParameter ("payload", packet);
 
     auto result = url.readEntireTextStream (true);
     DBG (result);
