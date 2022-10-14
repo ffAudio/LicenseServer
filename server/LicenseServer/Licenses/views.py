@@ -64,7 +64,7 @@ namespace Data {
 
 """
 
-    source += 'const char* server      = "' + version + '";\n'
+    source += 'const char* server      = "https://' + os.environ.get('HEROKU_HOSTNAME') + '/";\n'
     source += 'const char* productPage = "' + version.product.website + ';\n'
     source += 'const char* productUuid = "' + version.id + '";\n'
     source += 'const char* publicKey   = "' + version.public_key + '";\n'
