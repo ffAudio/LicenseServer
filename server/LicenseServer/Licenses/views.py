@@ -69,7 +69,8 @@ namespace Data {
     source += 'const char* productUuid = "' + str(version.id) + '";\n'
     source += 'const char* publicKey   = "' + version.public_key + '";\n'
     source += 'long        hash        = ' + str(version.public_key_hash) + ';\n'
-    source += 'bool        closingPopupAllowed = ' + version.product.allowDismissPopup + ';\n'
+    allowed = 'true' if version.product.allowDismissPopup else 'false'
+    source += 'bool        closingPopupAllowed = ' + allowed + ';\n'
 
     source += """
 } // namespace Data
