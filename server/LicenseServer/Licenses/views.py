@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
-import models
+from .models import Version
 import os
 
 # Create your views here.
