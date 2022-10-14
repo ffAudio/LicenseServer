@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Version
 import os
@@ -38,6 +39,7 @@ def index(request):
 
 
 # This checks the database for a valid license, demo or if demo is available
+@csrf_exempt
 def license(request):
     return HttpResponse("License test")
 

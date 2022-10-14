@@ -33,6 +33,15 @@ namespace licensing
 
 Connection::Connection()
 {
+    sendRequest();
+}
+
+void Connection::sendRequest()
+{
+    auto url = juce::URL (juce::String (Data::server) + "license").withParameter ("version", Data::productUuid);
+
+    auto result = url.readEntireTextStream (true);
+    DBG (result);
 }
 
 
