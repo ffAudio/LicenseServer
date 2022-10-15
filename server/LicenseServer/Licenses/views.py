@@ -46,7 +46,7 @@ def license(request):
     version = get_object_or_404(Version, pk=request.POST["version"])
     data = base64.b64decode(request.POST["payload"])
 
-    return HttpResponse("License test for:" + str(version.product) + "\n" + data)
+    return HttpResponse("License test for:" + str(version.product) + "\n" + str(data))
 
 
 # This creates a cpp file for the developer to pu in their product to unlock
