@@ -31,6 +31,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Version
 import os
+import base64
+from xml.dom import minidom
 
 # Create your views here.
 
@@ -42,8 +44,9 @@ def index(request):
 @csrf_exempt
 def license(request):
     version = get_object_or_404(Version, pk=request.POST["version"])
+    data = base64.b64decode(request.POST["payload"])
 
-    return HttpResponse("License test for:" + str(version.product))
+    return HttpResponse("License test for:" + str(version.product) + "\n" + data)
 
 
 # This creates a cpp file for the developer to pu in their product to unlock
