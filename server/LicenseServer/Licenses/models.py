@@ -50,6 +50,8 @@ class Version(models.Model):
     public_key_hash = models.BigIntegerField()
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.product.name + "-" + self.name + "(" + str(id) + ")"
 
 class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -65,6 +67,9 @@ class License(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.customer.name + " (" + self.product.name + ")"
 
 
 class Activation(models.Model):
