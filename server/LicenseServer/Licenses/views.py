@@ -53,7 +53,7 @@ def license(request):
     try:
         tree = minidom.parseString(data)
         attributes = tree.firstChild.attributes
-        activations = Activation.objects.filter(hardware_id=attributes.getNamedItem("hardware_id"), version=version)
+        activations = Activation.objects.filter(hardware_id=attributes.getNamedItem("hardware_id").value).get(version=version)
     except:
         return HttpResponse("Bad License request:" + str(version.product) + "\n")
 
