@@ -13,7 +13,8 @@ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 of the Software, and to permit persons to whom the Software is furnished to do
 so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -28,13 +29,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.admin.views.decorators import staff_member_required, login_required
 
-from .models import Version
+from .models import Version, License, Activation
 import os
 import base64
 from xml.dom import minidom
 
 # Create your views here.
+
 
 def index(request):
     return redirect(os.environ.get('PARENT_HOSTNAME'))
@@ -44,12 +47,20 @@ def index(request):
 @csrf_exempt
 def license(request):
     version = get_object_or_404(Version, pk=request.POST["version"])
-    data = base64.b64decode(request.POST["payload"])
+    data = str(base64.b64decode(request.POST["payload"]))
 
-    return HttpResponse("License test for:" + str(version.product) + "\n" + str(data))
+    try:
+        tree = minidom.parseString(data)
+        attributes = tree.firstChild.attributes
+        activations = Activation.objects.filter(hardware_id=attributes.getNamedItem("hardware_id"), version=version)
+    except:
+        return HttpResponse("Bad License request:" + str(version.product) + "\n")
+
+    return HttpResponse("License test for:" + str(version.product) + "\n" + data)
 
 
 # This creates a cpp file for the developer to pu in their product to unlock
+@staff_member_required
 def license_data(request, version_id):
     version = get_object_or_404(Version, pk=version_id)
 
