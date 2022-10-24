@@ -13,7 +13,8 @@
  of the Software, and to permit persons to whom the Software is furnished to do
  so, subject to the following conditions:
 
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -31,7 +32,7 @@
     name:          Licensing Client
     description:   This module implements communication with a self hosted
                    activation server
-    dependencies:  juce_core, juce_cryptography, juce_gui_basics
+    dependencies:  juce_core, juce_cryptography, juce_gui_basics, juce_product_unlocking
     website:       https://github.com/ffAudio/LicenseServer
     license:       MIT License
     END_JUCE_MODULE_DECLARATION
@@ -44,6 +45,7 @@
 #include <juce_core/juce_core.h>
 #include <juce_cryptography/juce_cryptography.h>
 #include <juce_gui_basics/juce_gui_basics.h>
+#include <juce_product_unlocking/juce_product_unlocking.h>
 
 #include "Client/Unlocker.h"
 #include "GUI/LicensingGUI.h"
